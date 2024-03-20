@@ -56,18 +56,24 @@ public class AppSimulationA extends Simulation {
       scenario("Scenario A2")
           .exitBlockOnFail()
           .on(
-              group("fr")
+              randomSwitch()
                   .on(
-                      feed(frFeeder),
-                      ScenarioGroups.authenticate,
-                      ScenarioGroups.browse,
-                      ScenarioGroups.incomplete_checkout),
-              group("us")
-                  .on(
-                      feed(usFeeder),
-                      ScenarioGroups.authenticate,
-                      ScenarioGroups.browse,
-                      ScenarioGroups.incomplete_checkout))
+                      percent(frWeight)
+                          .then(
+                              group("fr")
+                                  .on(
+                                      feed(frFeeder),
+                                      ScenarioGroups.authenticate,
+                                      ScenarioGroups.browse,
+                                      ScenarioGroups.incomplete_checkout)),
+                      percent(usWeight)
+                          .then(
+                              group("us")
+                                  .on(
+                                      feed(usFeeder),
+                                      ScenarioGroups.authenticate,
+                                      ScenarioGroups.browse,
+                                      ScenarioGroups.incomplete_checkout))))
           .exitHereIfFailed();
 
   private static final PopulationBuilder getTypeOfLoadTestSc1(String type) {
