@@ -7,8 +7,8 @@ public class Utils {
   public static final int users = Integer.getInteger("USERS", 1);
   public static final int duration = Integer.getInteger("DURATION", 1);
 
-  public static final String type = System.getProperty("TYPE", "stress");
-  public static final String Assertiontype = System.getProperty("ASSERTION_TYPE", "stress");
+  public static final String type = System.getProperty("TYPE", "smoke");
+  public static final String Assertiontype = System.getProperty("ASSERTION_TYPE", "smoke");
 
   public static final int frWeight = Integer.getInteger("FR_WEIGHT", 60);
   public static final int usWeight = Integer.getInteger("US_WIDTH", 40);
