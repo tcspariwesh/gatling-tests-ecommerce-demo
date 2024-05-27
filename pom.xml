@@ -58,7 +58,7 @@
         <artifactId>gatling-maven-plugin</artifactId>
         <version>${gatling-maven-plugin.version}</version>
         <configuration>
-          <apiToken>5iUdq96Fij32kamc3ALununI1Mds_7-PjadvIk80TlxRUoIo6gzrJYJVCZ6xLuRsh</apiToken>
+          
           <simulationId>d462fb12-0df5-4834-8658-9448464f5fde</simulationId>
           <simulationClass>app.AppSimulationA</simulationClass>
           <simulationSystemProperties>
