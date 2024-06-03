@@ -5,7 +5,7 @@
 
   <groupId>app.gatling</groupId>
   <artifactId>app-gatling</artifactId>
-  <version>3.11.2</version>
+  <version>3.11.3</version>
 
   <properties>
     <maven.compiler.release>21</maven.compiler.release>
@@ -58,7 +58,6 @@
         <artifactId>gatling-maven-plugin</artifactId>
         <version>${gatling-maven-plugin.version}</version>
         <configuration>
-          
           <simulationId>d462fb12-0df5-4834-8658-9448464f5fde</simulationId>
           <simulationClass>app.AppSimulationA</simulationClass>
           <simulationSystemProperties>
