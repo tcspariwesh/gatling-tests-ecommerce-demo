@@ -9,6 +9,6 @@ export const usWeight = 40;
 export const frDelay = 0;
 export const usDelay = 0;
 
-const targetEnv = targetEnvResolver(TARGET_ENV)
-export const baseUrl = targetEnv.baseUrl;
+const targetEnv = targetEnvResolver(TARGET_ENV);
 export const pageUrl = targetEnv.pageUrl;
+export const baseUrl = targetEnv.baseUrl;

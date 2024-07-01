@@ -36,7 +36,12 @@ import {
 
 export default simulation((setUp) => {
   const httpProtocol = withAuthenticationHeader(
-    http.baseUrl(baseUrl).acceptHeader("application/json").contentTypeHeader("application/json")
+    http
+      .baseUrl(baseUrl)
+      .acceptHeader("application/json")
+      .userAgentHeader(
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/119.0"
+      )
   );
 
   const frFeeder = csv(
