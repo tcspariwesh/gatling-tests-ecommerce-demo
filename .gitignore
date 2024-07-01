@@ -1,3 +1,5 @@
-/target
-/.mvn/wrapper/*.jar
-/.vscode
+/java/target
+/javascript/node_modules
+/javascript/target
+/typescript/node_modules
+/typescript/target

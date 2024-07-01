@@ -1,0 +1,26 @@
+{
+  "name": "gatling-ecomm-app-ts",
+  "version": "3.11.5",
+  "private": true,
+  "type": "module",
+  "main": "target/bundle",
+  "dependencies": {
+    "@gatling.io/core": "3.11.4",
+    "@gatling.io/http": "3.11.4"
+  },
+  "devDependencies": {
+    "@gatling.io/cli": "3.11.4",
+    "prettier": "3.2.5",
+    "rimraf": "5.0.7",
+    "typescript": "5.4.5"
+  },
+  "scripts": {
+    "clean": "rimraf target",
+    "format": "prettier --write \"**/*.ts\"",
+    "check": "tsc --noEmit",
+    "build": "tsc --noEmit && gatling build --typescript",
+    "recorder": "gatling recorder --typescript",
+    "simA": "gatling run --typescript --simulation=appSimulationA",
+    "simB": "gatling run --typescript --simulation=appSimulationB"
+  }
+}
