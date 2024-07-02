@@ -17,14 +17,13 @@ public class APIendpoints {
   public static final HttpRequestActionBuilder session =
       http("Session")
           .get("/session")
-          .queryParam("delay", "0")
+          .check(status().is(200))
           .check(jmesPath("sessionId").saveAs("sessionId"));
 
   public static final HttpRequestActionBuilder products =
       http("Product page: #{pageIndex}")
           .get("/products")
           .queryParam("page", "#{pageIndex}")
-          .queryParam("delay", "0")
           .check(status().is(200))
           .check(jmesPath("products").saveAs("products"));
 
@@ -41,7 +40,7 @@ public class APIendpoints {
       http("Search")
           .get("/products")
           .queryParam("search", "t-shirt")
-          .queryParam("delay", "#{delay}");
+          .check(status().is(200));
 
   public static final HttpRequestActionBuilder cart =
       http("Update Cart")
@@ -55,5 +54,5 @@ public class APIendpoints {
           .post("/checkout")
           .asJson()
           .body(ElFileBody("bodies/cart.json"))
-          .check(status().in(200));
+          .check(status().is(200));
 }
