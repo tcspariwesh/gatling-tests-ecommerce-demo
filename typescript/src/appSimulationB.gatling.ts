@@ -1,11 +1,9 @@
 import {
   simulation,
   scenario,
-  csv,
   randomSwitch,
   uniformRandomSwitch,
   percent,
-  feed,
   group,
   atOnceUsers,
   incrementUsersPerSec,
@@ -18,10 +16,8 @@ import { http } from "@gatling.io/http";
 import {
   baseUrl,
   duration,
-  frDelay,
   frWeight,
   type,
-  usDelay,
   usWeight,
   users
 } from "./config/utils";
@@ -44,20 +40,12 @@ export default simulation((setUp) => {
       )
   );
 
-  const frFeeder = csv(
-    "performance-data/" + type + "-data/" + type + "_index_" + frDelay + ".csv"
-  ).queue();
-  const usFeeder = csv(
-    "performance-data/" + type + "-data/" + type + "_index_" + usDelay + ".csv"
-  ).queue();
-
   const scenario1 = scenario("Scenario A1")
     .exitBlockOnFail()
     .on(
       randomSwitch().on(
         percent(frWeight).then(
           group("fr").on(
-            feed(frFeeder),
             homeAnonymous,
             authenticate,
             homeAuthenticated,
@@ -67,7 +55,6 @@ export default simulation((setUp) => {
         ),
         percent(usWeight).then(
           group("us").on(
-            feed(usFeeder),
             homeAnonymous,
             authenticate,
             homeAuthenticated,
@@ -84,7 +71,6 @@ export default simulation((setUp) => {
     .on(
       uniformRandomSwitch().on(
         group("fr").on(
-          feed(frFeeder),
           homeAnonymous,
           authenticate,
           homeAuthenticated,
@@ -92,7 +78,6 @@ export default simulation((setUp) => {
           buy
         ),
         group("us").on(
-          feed(usFeeder),
           homeAnonymous,
           authenticate,
           homeAuthenticated,

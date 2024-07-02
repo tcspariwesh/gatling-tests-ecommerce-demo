@@ -37,10 +37,7 @@ public class APIendpoints {
           .check(jmesPath("accessToken").saveAs("accessToken"));
 
   public static final HttpRequestActionBuilder search =
-      http("Search")
-          .get("/products")
-          .queryParam("search", "t-shirt")
-          .check(status().is(200));
+      http("Search").get("/products").queryParam("search", "t-shirt").check(status().is(200));
 
   public static final HttpRequestActionBuilder cart =
       http("Update Cart")

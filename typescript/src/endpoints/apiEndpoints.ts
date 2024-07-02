@@ -21,7 +21,6 @@ export const products = http("Product page: #{pageIndex}")
 export const search = http("Search")
   .get("/products")
   .queryParam("search", "t-shirt")
-  .queryParam("delay", "#{delay}")
   .check(status().is(200));
 
 export const login = http("Login")

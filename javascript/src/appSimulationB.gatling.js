@@ -1,11 +1,9 @@
 import {
   simulation,
   scenario,
-  csv,
   randomSwitch,
   uniformRandomSwitch,
   percent,
-  feed,
   group,
   atOnceUsers,
   incrementUsersPerSec,
@@ -18,10 +16,8 @@ import { http } from "@gatling.io/http";
 import {
   baseUrl,
   duration,
-  frDelay,
   frWeight,
   type,
-  usDelay,
   usWeight,
   users
 } from "./config/utils";
@@ -75,7 +71,6 @@ export default simulation((setUp) => {
     .on(
       uniformRandomSwitch().on(
         group("fr").on(
-          feed(frFeeder),
           homeAnonymous,
           authenticate,
           homeAuthenticated,
@@ -83,7 +78,6 @@ export default simulation((setUp) => {
           buy
         ),
         group("us").on(
-          feed(usFeeder),
           homeAnonymous,
           authenticate,
           homeAuthenticated,

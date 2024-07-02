@@ -1,7 +1,7 @@
 package app;
 
-import static app.config.Utils.*;
 import static app.config.PerfFeeders.*;
+import static app.config.Utils.*;
 import static app.endpoints.APIendpoints.*;
 import static app.groups.ScenarioGroups.*;
 import static io.gatling.javaapi.core.CoreDsl.*;
