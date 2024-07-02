@@ -1,5 +1,11 @@
 /java/target
+/java/src/test/java/app/config/PerfFeeders.java
+/java/src/test/resources/performance-data
 /javascript/node_modules
 /javascript/target
+/javascript/resources/performance-data
+/javascript/src/config/perfFeeders.js
 /typescript/node_modules
 /typescript/target
+/typescript/resources/performance-data
+/typescript/src/config/perfFeeders.ts

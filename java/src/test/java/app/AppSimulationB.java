@@ -1,6 +1,7 @@
 package app;
 
 import static app.config.Utils.*;
+import static app.config.PerfFeeders.*;
 import static app.endpoints.APIendpoints.*;
 import static app.groups.ScenarioGroups.*;
 import static io.gatling.javaapi.core.CoreDsl.*;
@@ -17,11 +18,6 @@ public class AppSimulationB extends Simulation {
               .acceptHeader("application/json")
               .userAgentHeader(
                   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/119.0"));
-
-  private static final FeederBuilder<String> frFeeder =
-      csv("performance-data/" + type + "-data/" + type + "_index_" + frDelay + ".csv").queue();
-  private static final FeederBuilder<String> usFeeder =
-      csv("performance-data/" + type + "-data/" + type + "_index_" + usDelay + ".csv").queue();
 
   private static final ScenarioBuilder scenario1 =
       scenario("Scenario B1")
@@ -87,7 +83,7 @@ public class AppSimulationB extends Simulation {
       case "soak" -> scenario1.injectOpen(constantUsersPerSec(users).during(duration));
       case "stress" -> scenario1.injectOpen(stressPeakUsers(users).during(duration));
       case "breakpoint" -> scenario1.injectOpen(rampUsers(users).during(duration));
-      case "smoke" -> scenario2.injectOpen(atOnceUsers(1));
+      case "smoke" -> scenario1.injectOpen(atOnceUsers(1));
       default -> scenario1.injectOpen(atOnceUsers(users));
     };
   }
