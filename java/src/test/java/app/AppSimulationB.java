@@ -1,6 +1,5 @@
 package app;
 
-import static app.config.PerfFeeders.*;
 import static app.config.Utils.*;
 import static app.endpoints.APIendpoints.*;
 import static app.groups.ScenarioGroups.*;
@@ -25,21 +24,19 @@ public class AppSimulationB extends Simulation {
           .on(
               randomSwitch()
                   .on(
-                      percent(frWeight)
+                      percent(frPerc)
                           .then(
                               group("fr")
                                   .on(
-                                      feed(frFeeder),
                                       homeAnonymous,
                                       authenticate,
                                       homeAuthenticated,
                                       addToCart,
                                       buy)),
-                      percent(usWeight)
+                      percent(usPerc)
                           .then(
                               group("us")
                                   .on(
-                                      feed(usFeeder),
                                       homeAnonymous,
                                       authenticate,
                                       homeAuthenticated,
@@ -55,7 +52,6 @@ public class AppSimulationB extends Simulation {
                   .on(
                       group("fr")
                           .on(
-                              feed(frFeeder),
                               homeAnonymous,
                               authenticate,
                               homeAuthenticated,
@@ -63,7 +59,6 @@ public class AppSimulationB extends Simulation {
                               buy),
                       group("us")
                           .on(
-                              feed(usFeeder),
                               homeAnonymous,
                               authenticate,
                               homeAuthenticated,

@@ -4,8 +4,8 @@ export const TARGET_ENV = "DEV1";
 export const users = 1;
 export const duration = 1;
 export const type = "smoke";
-export const frWeight = 60;
-export const usWeight = 40;
+export const frPerc = 60;
+export const usPerc = 40;
 export const frDelay = 0;
 export const usDelay = 0;
 

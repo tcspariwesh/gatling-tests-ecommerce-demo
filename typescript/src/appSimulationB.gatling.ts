@@ -16,9 +16,9 @@ import { http } from "@gatling.io/http";
 import {
   baseUrl,
   duration,
-  frWeight,
+  frPerc,
   type,
-  usWeight,
+  usPerc,
   users
 } from "./config/utils";
 import { withAuthenticationHeader } from "./endpoints/apiEndpoints";
@@ -44,7 +44,7 @@ export default simulation((setUp) => {
     .exitBlockOnFail()
     .on(
       randomSwitch().on(
-        percent(frWeight).then(
+        percent(frPerc).then(
           group("fr").on(
             homeAnonymous,
             authenticate,
@@ -53,7 +53,7 @@ export default simulation((setUp) => {
             buy
           )
         ),
-        percent(usWeight).then(
+        percent(usPerc).then(
           group("us").on(
             homeAnonymous,
             authenticate,
