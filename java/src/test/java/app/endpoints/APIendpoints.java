@@ -40,8 +40,8 @@ public class APIendpoints {
       http("Search").get("/products").queryParam("search", "t-shirt").check(status().is(200));
 
   public static final HttpRequestActionBuilder cart =
-      http("Update Cart")
-          .put("/cart")
+      http("Add to Cart")
+          .post("/cart")
           .asJson()
           .body(ElFileBody("bodies/cart.json"))
           .check(status().is(200));

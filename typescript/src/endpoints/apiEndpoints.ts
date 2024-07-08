@@ -31,8 +31,8 @@ export const login = http("Login")
   .check(status().is(200))
   .check(jmesPath("accessToken").saveAs("accessToken"));
 
-export const cart = http("Update Cart")
-  .put("/cart")
+export const cart = http("Add to Cart")
+  .post("/cart")
   .asJson()
   .body(ElFileBody("bodies/cart.json"))
   .check(status().is(200));
