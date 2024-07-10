@@ -10,7 +10,7 @@ public class Utils {
   public static final String type = System.getProperty("TYPE", "smoke");
 
   public static final int frPerc = Integer.getInteger("FR_PERC", 60);
-  public static final int usPerc = Integer.getInteger("US_PERC", 0);
+  public static final int usPerc = Integer.getInteger("US_PERC", 40);
 
   public static final String frDelay = System.getProperty("FR_PERF_INDEX", "0");
   public static final String usDelay = System.getProperty("US_PERF_INDEX", "0");
