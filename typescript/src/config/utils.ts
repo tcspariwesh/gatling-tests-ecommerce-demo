@@ -8,6 +8,8 @@ export const frPerc = 60;
 export const usPerc = 40;
 export const frDelay = 0;
 export const usDelay = 0;
+export const min = 5;
+export const max = 15;
 
 const targetEnv = targetEnvResolver(TARGET_ENV);
 export const pageUrl = targetEnv.pageUrl;

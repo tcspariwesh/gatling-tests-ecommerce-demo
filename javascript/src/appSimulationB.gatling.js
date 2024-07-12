@@ -47,18 +47,24 @@ export default simulation((setUp) => {
         percent(frPerc).then(
           group("fr").on(
             homeAnonymous,
+            pause(min, max),
             authenticate,
             homeAuthenticated,
+            pause(min, max),
             addToCart,
+            pause(min, max),
             buy
           )
         ),
         percent(usPerc).then(
           group("us").on(
             homeAnonymous,
+            pause(min, max),
             authenticate,
             homeAuthenticated,
+            pause(min, max),
             addToCart,
+            pause(min, max),
             buy
           )
         )
@@ -72,16 +78,22 @@ export default simulation((setUp) => {
       uniformRandomSwitch().on(
         group("fr").on(
           homeAnonymous,
+          pause(min, max),
           authenticate,
           homeAuthenticated,
+          pause(min, max),
           addToCart,
+          pause(min, max),
           buy
         ),
         group("us").on(
           homeAnonymous,
+          pause(min, max),
           authenticate,
           homeAuthenticated,
+          pause(min, max),
           addToCart,
+          pause(min, max),
           buy
         )
       )

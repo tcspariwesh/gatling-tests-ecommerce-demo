@@ -40,4 +40,4 @@ export const addToCart = group("addToCart").on(
   cart
 );
 
-export const buy = group("homeAuthenticated").on(checkOut);
+export const buy = group("buy").on(checkOut);
