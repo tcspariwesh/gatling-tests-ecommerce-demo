@@ -29,24 +29,24 @@ public class AppSimulationB extends Simulation {
                               group("fr")
                                   .on(
                                       homeAnonymous,
-                                      pause(min, max),
+                                      pause(minSec, maxSec),
                                       authenticate,
                                       homeAuthenticated,
-                                      pause(min, max),
+                                      pause(minSec, maxSec),
                                       addToCart,
-                                      pause(min, max),
+                                      pause(minSec, maxSec),
                                       buy)),
                       percent(usPerc)
                           .then(
                               group("us")
                                   .on(
                                       homeAnonymous,
-                                      pause(min, max),
+                                      pause(minSec, maxSec),
                                       authenticate,
                                       homeAuthenticated,
-                                      pause(min, max),
+                                      pause(minSec, maxSec),
                                       addToCart,
-                                      pause(min, max),
+                                      pause(minSec, maxSec),
                                       buy))))
           .exitHereIfFailed();
 

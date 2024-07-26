@@ -18,8 +18,8 @@ import {
   baseUrl,
   duration,
   frPerc,
-  max,
-  min,
+  maxSec,
+  minSec,
   type,
   usPerc,
   users
@@ -50,24 +50,24 @@ export default simulation((setUp) => {
         percent(frPerc).then(
           group("fr").on(
             homeAnonymous,
-            pause(min, max),
+            pause(minSec, maxSec),
             authenticate,
             homeAuthenticated,
-            pause(min, max),
+            pause(minSec, maxSec),
             addToCart,
-            pause(min, max),
+            pause(minSec, maxSec),
             buy
           )
         ),
         percent(usPerc).then(
           group("us").on(
             homeAnonymous,
-            pause(min, max),
+            pause(minSec, maxSec),
             authenticate,
             homeAuthenticated,
-            pause(min, max),
+            pause(minSec, maxSec),
             addToCart,
-            pause(min, max),
+            pause(minSec, maxSec),
             buy
           )
         )
@@ -81,22 +81,22 @@ export default simulation((setUp) => {
       uniformRandomSwitch().on(
         group("fr").on(
           homeAnonymous,
-          pause(min, max),
+          pause(minSec, maxSec),
           authenticate,
           homeAuthenticated,
-          pause(min, max),
+          pause(minSec, maxSec),
           addToCart,
-          pause(min, max),
+          pause(minSec, maxSec),
           buy
         ),
         group("us").on(
           homeAnonymous,
-          pause(min, max),
+          pause(minSec, maxSec),
           authenticate,
           homeAuthenticated,
-          pause(min, max),
+          pause(minSec, maxSec),
           addToCart,
-          pause(min, max),
+          pause(minSec, maxSec),
           buy
         )
       )

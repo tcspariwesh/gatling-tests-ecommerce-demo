@@ -6,8 +6,8 @@ public class Utils {
 
   public static final int users = Integer.getInteger("USERS", 1);
   public static final int duration = Integer.getInteger("DURATION", 1);
-  public static final int min = Integer.getInteger("MIN", 5);
-  public static final int max = Integer.getInteger("MAX", 15);
+  public static final int minSec = Integer.getInteger("MIN", 5);
+  public static final int maxSec = Integer.getInteger("MAX", 15);
   public static final String type = System.getProperty("TYPE", "smoke");
 
 

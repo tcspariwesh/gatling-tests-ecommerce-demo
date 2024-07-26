@@ -8,7 +8,7 @@ import {
   checkOut
 } from "../endpoints/apiEndpoints";
 import { homePage, loginPage } from "../endpoints/webEndpoints";
-import { max, min } from "src/config/utils";
+import { maxSec, minSec } from "src/config/utils";
 
 export const usersFeeder = jsonFile("data/users_dev1.json").circular();
 
@@ -19,7 +19,7 @@ export const homeAnonymous = group("homeAnonymous").on(
   products
 );
 
-export const authenticate = group("authenticate").on(loginPage, feed(usersFeeder), pause(min, max), login);
+export const authenticate = group("authenticate").on(loginPage, feed(usersFeeder), pause(minSec, maxSec), login);
 
 export const homeAuthenticated = group("homeAuthenticated").on(homeAnonymous, products, search);
 
