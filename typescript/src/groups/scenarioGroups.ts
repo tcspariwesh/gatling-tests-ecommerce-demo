@@ -21,7 +21,7 @@ export const homeAnonymous = group("homeAnonymous").on(
 
 export const authenticate = group("authenticate").on(loginPage, feed(usersFeeder), pause(minSec, maxSec), login);
 
-export const homeAuthenticated = group("homeAuthenticated").on(homeAnonymous, products, search);
+export const homeAuthenticated = group("homeAuthenticated").on(homePage, products,  pause(minSec, maxSec), search);
 
 export const addToCart = group("addToCart").on(
   exec((session) => {

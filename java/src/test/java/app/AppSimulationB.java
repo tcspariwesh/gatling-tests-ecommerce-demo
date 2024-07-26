@@ -57,9 +57,25 @@ public class AppSimulationB extends Simulation {
               uniformRandomSwitch()
                   .on(
                       group("fr")
-                          .on(homeAnonymous, authenticate, homeAuthenticated, addToCart, buy),
+                          .on(
+                              homeAnonymous,
+                              pause(minSec, maxSec),
+                              authenticate,
+                              homeAuthenticated,
+                              pause(minSec, maxSec),
+                              addToCart,
+                              pause(minSec, maxSec),
+                              buy),
                       group("us")
-                          .on(homeAnonymous, authenticate, homeAuthenticated, addToCart, buy)))
+                          .on(
+                              homeAnonymous,
+                              pause(minSec, maxSec),
+                              authenticate,
+                              homeAuthenticated,
+                              pause(minSec, maxSec),
+                              addToCart,
+                              pause(minSec, maxSec),
+                              buy)))
           .exitHereIfFailed();
 
   private static final PopulationBuilder getTypeOfLoadTestSc1(String type) {

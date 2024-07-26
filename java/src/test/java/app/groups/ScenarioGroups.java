@@ -35,7 +35,7 @@ public class ScenarioGroups {
       group("authenticate").on(loginPage, feed(usersFeeder), pause(minSec, maxSec), login);
 
   public static final ChainBuilder homeAuthenticated =
-      group("homeAuthenticated").on(homePage, products, search);
+      group("homeAuthenticated").on(homePage, products, pause(minSec, maxSec), search);
 
   public static final ChainBuilder addToCart =
       group("addToCart")
