@@ -59,5 +59,5 @@ public class ScenarioGroups {
                   }),
               cart);
 
-  public static final ChainBuilder buy = group("homeAuthenticated").on(checkOut);
+  public static final ChainBuilder buy = group("buy").on(checkOut);
 }
