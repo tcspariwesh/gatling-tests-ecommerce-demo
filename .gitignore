@@ -9,3 +9,4 @@
 /typescript/target
 /typescript/resources/performance-data
 /typescript/src/config/perfFeeders.ts
+.gitignore
