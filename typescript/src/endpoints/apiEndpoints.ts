@@ -1,8 +1,13 @@
 import { ElFileBody, jmesPath } from "@gatling.io/core";
 import { HttpProtocolBuilder, http, status } from "@gatling.io/http";
 
+interface Session {
+  contains(key: string): boolean;
+  get(key: string): string;
+}
+
 export function withAuthenticationHeader(protocolBuilder: HttpProtocolBuilder) {
-  return protocolBuilder.header("Authorization", (session : any) =>
+  return protocolBuilder.header("Authorization", (session : Session) =>
     session.contains("accessToken") ? session.get("accessToken") : ""
   );
 }
