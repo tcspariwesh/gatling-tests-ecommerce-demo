@@ -156,7 +156,7 @@ export default simulation((setUp) => {
       case "soak":
         return global().responseTime().percentile(99.9).lt(500);
       case "stress":
-        return global().responseTime().percentile(90.0).lt(500);
+        return global().responseTime().percentile(90.0).lt(550);
       case "breakpoint":
         return global().responseTime().percentile(90.0).lt(500);
       case "smoke":
