@@ -1,4 +1,4 @@
-Gatling plugin for Maven - Java demo project
+Gatling plugin for Maven - Java ecommerce applcation load tests
 ============================================
 
 A simple showcase of a Maven project using the Gatling plugin for Maven. Refer to the plugin documentation
@@ -16,4 +16,3 @@ It includes:
 * sample [Simulation](https://gatling.io/docs/gatling/reference/current/general/concepts/#simulation) class,
   demonstrating sufficient Gatling functionality
 * proper source file layout
-# app-package-maven-plugin
