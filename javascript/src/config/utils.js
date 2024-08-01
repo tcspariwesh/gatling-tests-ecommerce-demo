@@ -1,43 +1,43 @@
-import { getOption } from "@gatling.io/core";
+import { getParameter } from "@gatling.io/core";
 import targetEnvResolver from "./targetEnvResolver";
 
-export const targetEnv = getOption(
+export const targetEnv = getParameter(
     "targetEnv", 
     "PROD" 
   );
-export const users = parseInt(getOption(
+export const users = parseInt(getParameter(
     "users", 
     "1" 
   ));
-export const duration = parseInt(getOption(
+export const duration = parseInt(getParameter(
     "duration", 
     "1" 
   ));
-export const type = getOption(
+export const type = getParameter(
     "type", 
     "smoke" 
   );
-export const frPerc = parseFloat(getOption(
+export const frPerc = parseFloat(getParameter(
     "frPerc", 
     "60.0" 
   ));
-export const usPerc = parseFloat(getOption(
+export const usPerc = parseFloat(getParameter(
     "usPerc", 
     "40.0" 
   ));
-export const frDelay = parseInt(getOption(
+export const frDelay = parseInt(getParameter(
     "frDelay", 
     "0" 
   ));
-export const usDelay = parseInt(getOption(
+export const usDelay = parseInt(getParameter(
     "usDelay", 
     "0" 
   ));
-export const minSec = parseInt(getOption(
+export const minSec = parseInt(getParameter(
     "minSec", 
     "5" 
   ));
-export const maxSec = parseInt(getOption(
+export const maxSec = parseInt(getParameter(
     "maxSec", 
     "15" 
   ));
