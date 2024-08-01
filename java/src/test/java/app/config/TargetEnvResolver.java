@@ -6,15 +6,15 @@ public class TargetEnvResolver {
 
   public static EnvInfo resolveEnvironmentInfo(String targetEnv) {
     return switch (targetEnv) {
-      case "DEV1" ->
+      case "PROD" ->
           new EnvInfo(
-              "https://ecomm.sandbox.gatling.io",
-              "https://api-ecomm.sandbox.gatling.io",
+              "https://ecomm.gatling.io",
+              "https://api-ecomm.gatling.io",
               "users_dev1.json");
       default ->
           new EnvInfo(
-              "https://ecomm.sandbox.gatling.io",
-              "https://api-ecomm.sandbox.gatling.io",
+              "https://ecomm.gatling.io",
+              "https://api-ecomm.gatling.io",
               "users_dev1.json");
     };
   }

@@ -3,7 +3,7 @@ import targetEnvResolver from "./targetEnvResolver";
 
 export const targetEnv = getOption(
     "targetEnv", 
-    "DEV1" 
+    "PROD" 
   );
 export const users = parseInt(getOption(
     "users", 

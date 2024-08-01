@@ -2,7 +2,7 @@ package app.config;
 
 public class Utils {
 
-  public static final String TARGET_ENV = System.getProperty("TARGET_ENV", "dev1");
+  public static final String TARGET_ENV = System.getProperty("TARGET_ENV", "PROD");
 
   public static final int users = Integer.getInteger("USERS", 1);
   public static final int duration = Integer.getInteger("DURATION", 1);
