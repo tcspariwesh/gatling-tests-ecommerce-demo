@@ -58,16 +58,6 @@
         <artifactId>gatling-maven-plugin</artifactId>
         <version>${gatling-maven-plugin.version}</version>
         <configuration>
-          <simulationId>d462fb12-0df5-4834-8658-9448464f5fde</simulationId>
-          <simulationClass>app.AppSimulationA</simulationClass>
-          <simulationSystemProperties>
-            <US_PERF_INDEX>0</US_PERF_INDEX>
-            <FR_PERF_INDEX>0</FR_PERF_INDEX>
-            <TYPE>stress</TYPE>
-            <ASSERTION_TYPE>stress</ASSERTION_TYPE>
-            <DURATION>30</DURATION>
-          </simulationSystemProperties>
-          <waitForRunEnd>true</waitForRunEnd>
         </configuration>
       </plugin>
     </plugins>
