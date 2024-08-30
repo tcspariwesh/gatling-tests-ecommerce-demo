@@ -11,7 +11,7 @@ public class AppSimulationA extends Simulation {
   private static final int vu = Integer.getInteger("vu", 1);
 
   private static final HttpProtocolBuilder httpProtocol =
-      http.baseUrl("https://api-ecomm.sandbox.gatling.io")
+      http.baseUrl("https://api-ecomm.gatling.io")
           .acceptHeader("application/json")
           .userAgentHeader(
               "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/119.0");

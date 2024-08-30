@@ -8,14 +8,10 @@ public class TargetEnvResolver {
     return switch (targetEnv) {
       case "PROD" ->
           new EnvInfo(
-              "https://ecomm.gatling.io",
-              "https://api-ecomm.gatling.io",
-              "users_dev1.json");
+              "https://ecomm.gatling.io", "https://api-ecomm.gatling.io", "users_dev1.json");
       default ->
           new EnvInfo(
-              "https://ecomm.gatling.io",
-              "https://api-ecomm.gatling.io",
-              "users_dev1.json");
+              "https://ecomm.gatling.io", "https://api-ecomm.gatling.io", "users_dev1.json");
     };
   }
 }
