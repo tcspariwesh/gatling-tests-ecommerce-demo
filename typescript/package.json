@@ -1,6 +1,6 @@
 {
   "name": "gatling-ecomm-app-ts",
-  "version": "3.11.5",
+  "version": "3.12.0",
   "private": true,
   "type": "module",
   "main": "target/bundle",
