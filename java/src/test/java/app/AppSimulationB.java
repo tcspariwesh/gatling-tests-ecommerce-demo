@@ -6,6 +6,8 @@ import static app.groups.ScenarioGroups.*;
 import static io.gatling.javaapi.core.CoreDsl.*;
 import static io.gatling.javaapi.http.HttpDsl.*;
 
+import java.util.List;
+
 import io.gatling.javaapi.core.*;
 import io.gatling.javaapi.http.*;
 
@@ -112,14 +114,29 @@ public class AppSimulationB extends Simulation {
     };
   }
 
-  private static final Assertion getAssertion(String type) {
+  private static final List<Assertion> getAssertion(String type) {
     return switch (type) {
-      case "capacity" -> global().responseTime().percentile(90.0).lt(500);
-      case "soak" -> global().responseTime().percentile(90.0).lt(500);
-      case "stress" -> global().responseTime().percentile(90.0).lt(500);
-      case "breakpoint" -> global().responseTime().percentile(90.0).lt(500);
-      case "smoke" -> global().failedRequests().count().lt(1L);
-      default -> global().responseTime().percentile(90.0).lt(500);
+      case "capacity" ->
+          List.of(
+              global().responseTime().percentile(90.0).lt(500),
+              global().failedRequests().percent().lt(5.0));
+      case "soak" ->
+          List.of(
+              global().responseTime().percentile(90.0).lt(500),
+              global().failedRequests().percent().lt(5.0));
+      case "stress" ->
+          List.of(
+              global().responseTime().percentile(90.0).lt(500),
+              global().failedRequests().percent().lt(5.0));
+      case "breakpoint" ->
+          List.of(
+              global().responseTime().percentile(90.0).lt(500),
+              global().failedRequests().percent().lt(5.0));
+      case "smoke" -> List.of(global().failedRequests().count().lt(1L));
+      default ->
+          List.of(
+              global().responseTime().percentile(90.0).lt(500),
+              global().failedRequests().percent().lt(5.0));
     };
   }
 
