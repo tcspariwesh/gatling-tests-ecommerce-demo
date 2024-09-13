@@ -6,10 +6,9 @@ import static app.groups.ScenarioGroups.*;
 import static io.gatling.javaapi.core.CoreDsl.*;
 import static io.gatling.javaapi.http.HttpDsl.*;
 
-import java.util.List;
-
 import io.gatling.javaapi.core.*;
 import io.gatling.javaapi.http.*;
+import java.util.List;
 
 public class AppSimulationB extends Simulation {
 

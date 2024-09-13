@@ -152,21 +152,21 @@ export default simulation((setUp) => {
   const getAssertion = (type) => {
     switch (type) {
       case "capacity":
-        return global().responseTime().percentile(90.0).lt(500);
+        return [global().responseTime().percentile(90.0).lt(500), global().failedRequests().percent().lt(5.0)];
       case "soak":
-        return global().responseTime().percentile(99.9).lt(500);
+        return [global().responseTime().percentile(99.9).lt(500), global().failedRequests().percent().lt(5.0)];
       case "stress":
-        return global().responseTime().percentile(90.0).lt(550);
+        return [global().responseTime().percentile(90.0).lt(550), global().failedRequests().percent().lt(5.0)];
       case "breakpoint":
-        return global().responseTime().percentile(90.0).lt(500);
+        return [global().responseTime().percentile(90.0).lt(500), global().failedRequests().percent().lt(5.0)];
       case "smoke":
-        return global().failedRequests().count().lt(1.0);
+        return [global().failedRequests().count().lt(1.0)]
       default:
-        return global().responseTime().percentile(90.0).lt(500);
+        return [global().responseTime().percentile(90.0).lt(500), global().failedRequests().percent().lt(5.0)];
     }
   };
 
   setUp(getTypeOfLoadTestSc1(type), getTypeOfLoadTestSc2(type))
-    .assertions(getAssertion(type))
+    .assertions(...getAssertion(type))
     .protocols(httpProtocol);
 });
