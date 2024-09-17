@@ -32,10 +32,11 @@ public class ScenarioGroups {
           .on(homePage, session, exec(session -> session.set("pageIndex", 0)), products);
 
   public static final ChainBuilder authenticate =
-      group("authenticate").on(loginPage, feed(usersFeeder), pause(minSec, maxSec), login);
+      group("authenticate")
+          .on(loginPage, feed(usersFeeder), pause(minPauseSec, maxPauseSec), login);
 
   public static final ChainBuilder homeAuthenticated =
-      group("homeAuthenticated").on(homePage, products, pause(minSec, maxSec), search);
+      group("homeAuthenticated").on(homePage, products, pause(minPauseSec, maxPauseSec), search);
 
   public static final ChainBuilder addToCart =
       group("addToCart")

@@ -1,14 +1,7 @@
 import { group, jsonFile, feed, exec, pause } from "@gatling.io/core";
-import {
-  session,
-  login,
-  search,
-  cart,
-  products,
-  checkOut
-} from "../endpoints/apiEndpoints";
+import { session, login, search, cart, products, checkOut } from "../endpoints/apiEndpoints";
 import { homePage, loginPage } from "../endpoints/webEndpoints";
-import { maxSec, minSec } from "src/config/utils";
+import { maxPauseSec, minPauseSec } from "src/config/utils";
 
 export const usersFeeder = jsonFile("data/users_dev1.json").circular();
 
@@ -19,9 +12,19 @@ export const homeAnonymous = group("homeAnonymous").on(
   products
 );
 
-export const authenticate = group("authenticate").on(loginPage, feed(usersFeeder), pause(minSec, maxSec), login);
+export const authenticate = group("authenticate").on(
+  loginPage,
+  feed(usersFeeder),
+  pause(minPauseSec, maxPauseSec),
+  login
+);
 
-export const homeAuthenticated = group("homeAuthenticated").on(homePage, products,  pause(minSec, maxSec), search);
+export const homeAuthenticated = group("homeAuthenticated").on(
+  homePage,
+  products,
+  pause(minPauseSec, maxPauseSec),
+  search
+);
 
 export const addToCart = group("addToCart").on(
   exec((session) => {

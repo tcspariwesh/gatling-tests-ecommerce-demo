@@ -1,172 +1,147 @@
-import {
-  simulation,
-  scenario,
-  randomSwitch,
-  uniformRandomSwitch,
-  percent,
-  group,
-  atOnceUsers,
-  incrementUsersPerSec,
-  constantUsersPerSec,
-  stressPeakUsers,
-  rampUsersPerSec,
-  global,
-  pause
-} from "@gatling.io/core";
+import * as core from "@gatling.io/core";
 import { http } from "@gatling.io/http";
-import {
-  baseUrl,
-  duration,
-  frPerc,
-  minSec,
-  maxSec,
-  type,
-  usPerc,
-  users
-} from "./config/utils";
+import * as utils from "./config/utils";
 import { withAuthenticationHeader } from "./endpoints/apiEndpoints";
-import {
-  addToCart,
-  authenticate,
-  buy,
-  homeAnonymous,
-  homeAuthenticated
-} from "./groups/scenarioGroups";
+import * as groups from "./groups/scenarioGroups";
 
-export default simulation((setUp) => {
+export default core.simulation((setUp) => {
   const httpProtocol = withAuthenticationHeader(
     http
-      .baseUrl(baseUrl)
+      .baseUrl(utils.baseUrl)
       .acceptHeader("application/json")
       .userAgentHeader(
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/119.0"
       )
   );
 
-  const scenario1 = scenario("Scenario A1")
+  const scn1 = core
+    .scenario("Scenario A1")
     .exitBlockOnFail()
     .on(
-      randomSwitch().on(
-        percent(frPerc).then(
-          group("fr").on(
-            homeAnonymous,
-            pause(minSec, maxSec),
-            authenticate,
-            homeAuthenticated,
-            pause(minSec, maxSec),
-            addToCart,
-            pause(minSec, maxSec),
-            buy
-          )
-        ),
-        percent(usPerc).then(
-          group("us").on(
-            homeAnonymous,
-            pause(minSec, maxSec),
-            authenticate,
-            homeAuthenticated,
-            pause(minSec, maxSec),
-            addToCart,
-            pause(minSec, maxSec),
-            buy
-          )
+      core
+        .randomSwitch()
+        .on(
+          core
+            .percent(utils.frPerc)
+            .then(
+              core
+                .group("fr")
+                .on(
+                  groups.homeAnonymous,
+                  core.pause(utils.minPauseSec, utils.maxPauseSec),
+                  groups.authenticate,
+                  groups.homeAuthenticated,
+                  core.pause(utils.minPauseSec, utils.maxPauseSec),
+                  groups.addToCart,
+                  core.pause(utils.minPauseSec, utils.maxPauseSec),
+                  groups.buy
+                )
+            ),
+          core
+            .percent(utils.usPerc)
+            .then(
+              core
+                .group("us")
+                .on(
+                  groups.homeAnonymous,
+                  core.pause(utils.minPauseSec, utils.maxPauseSec),
+                  groups.authenticate,
+                  groups.homeAuthenticated,
+                  core.pause(utils.minPauseSec, utils.maxPauseSec),
+                  groups.addToCart,
+                  core.pause(utils.minPauseSec, utils.maxPauseSec),
+                  groups.buy
+                )
+            )
         )
-      )
     )
     .exitHereIfFailed();
 
-  const scenario2 = scenario("Scenario A2")
+  const scn2 = core
+    .scenario("Scenario A2")
     .exitBlockOnFail()
     .on(
-      uniformRandomSwitch().on(
-        group("fr").on(
-          homeAnonymous,
-          pause(minSec, maxSec),
-          authenticate,
-          homeAuthenticated,
-          pause(minSec, maxSec),
-          addToCart,
-          pause(minSec, maxSec),
-          buy
-        ),
-        group("us").on(
-          homeAnonymous,
-          pause(minSec, maxSec),
-          authenticate,
-          homeAuthenticated,
-          pause(minSec, maxSec),
-          addToCart,
-          pause(minSec, maxSec),
-          buy
+      core
+        .uniformRandomSwitch()
+        .on(
+          core
+            .group("fr")
+            .on(
+              groups.homeAnonymous,
+              core.pause(utils.minPauseSec, utils.maxPauseSec),
+              groups.authenticate,
+              groups.homeAuthenticated,
+              core.pause(utils.minPauseSec, utils.maxPauseSec),
+              groups.addToCart,
+              core.pause(utils.minPauseSec, utils.maxPauseSec),
+              groups.buy
+            ),
+          core
+            .group("us")
+            .on(
+              groups.homeAnonymous,
+              core.pause(utils.minPauseSec, utils.maxPauseSec),
+              groups.authenticate,
+              groups.homeAuthenticated,
+              core.pause(utils.minPauseSec, utils.maxPauseSec),
+              groups.addToCart,
+              core.pause(utils.minPauseSec, utils.maxPauseSec),
+              groups.buy
+            )
         )
-      )
     )
     .exitHereIfFailed();
 
-  const getTypeOfLoadTestSc1 = (type) => {
+  const injectionProfile = (scn, type) => {
     switch (type) {
       case "capacity":
-        return scenario1.injectOpen(
-          incrementUsersPerSec(users)
+        return scn.injectOpen(
+          core
+            .incrementUsersPerSec(utils.users)
             .times(4)
-            .eachLevelLasting(duration)
+            .eachLevelLasting(utils.duration)
             .separatedByRampsLasting(4)
             .startingFrom(10)
         );
       case "soak":
-        return scenario1.injectOpen(constantUsersPerSec(users).during(duration));
+        return scn.injectOpen(core.constantUsersPerSec(utils.users).during(utils.duration));
       case "stress":
-        return scenario1.injectOpen(stressPeakUsers(users).during(duration));
+        return scn.injectOpen(core.stressPeakUsers(utils.users).during(utils.duration));
       case "breakpoint":
-        return scenario1.injectOpen(rampUsersPerSec(0).to(users).during(duration));
+        return scn.injectOpen(core.rampUsersPerSec(0).to(utils.users).during(utils.duration));
+      case "ramp-hold":
+        return scn.injectOpen(
+          core.rampUsersPerSec(0).to(utils.users).during(utils.ramp_duration),
+          core.constantUsersPerSec(utils.users).during(utils.duration)
+        );
       case "smoke":
-        return scenario1.injectOpen(atOnceUsers(1));
+        return scn.injectOpen(core.atOnceUsers(1));
       default:
-        return scenario1.injectOpen(atOnceUsers(users));
+        return scn.injectOpen(core.atOnceUsers(utils.users));
     }
   };
 
-  const getTypeOfLoadTestSc2 = (type) => {
-    switch (type) {
-      case "capacity":
-        return scenario2.injectOpen(
-          incrementUsersPerSec(users)
-            .times(4)
-            .eachLevelLasting(duration)
-            .separatedByRampsLasting(4)
-            .startingFrom(10)
-        );
-      case "soak":
-        return scenario2.injectOpen(constantUsersPerSec(users).during(duration));
-      case "stress":
-        return scenario2.injectOpen(stressPeakUsers(users).during(duration));
-      case "breakpoint":
-        return scenario2.injectOpen(rampUsersPerSec(0).to(users).during(duration));
-      case "smoke":
-        return scenario2.injectOpen(atOnceUsers(1));
-      default:
-        return scenario2.injectOpen(atOnceUsers(users));
-    }
-  };
+  const assertions = [
+    core.global().responseTime().percentile(90.0).lt(500),
+    core.global().failedRequests().percent().lt(5.0)
+  ];
 
   const getAssertion = (type) => {
     switch (type) {
       case "capacity":
-        return [global().responseTime().percentile(90.0).lt(500), global().failedRequests().percent().lt(5.0)];
       case "soak":
-        return [global().responseTime().percentile(99.9).lt(500), global().failedRequests().percent().lt(5.0)];
       case "stress":
-        return [global().responseTime().percentile(90.0).lt(550), global().failedRequests().percent().lt(5.0)];
       case "breakpoint":
-        return [global().responseTime().percentile(90.0).lt(500), global().failedRequests().percent().lt(5.0)];
+      case "ramp-hold":
+        return assertions;
       case "smoke":
-        return [global().failedRequests().count().lt(1.0)]
+        return [core.global().failedRequests().count().lt(1.0)];
       default:
-        return [global().responseTime().percentile(90.0).lt(500), global().failedRequests().percent().lt(5.0)];
+        return assertions;
     }
   };
 
-  setUp(getTypeOfLoadTestSc1(type), getTypeOfLoadTestSc2(type))
-    .assertions(...getAssertion(type))
+  setUp(injectionProfile(scn1, utils.type), injectionProfile(scn2, utils.type))
+    .assertions(...getAssertion(utils.type))
     .protocols(httpProtocol);
 });

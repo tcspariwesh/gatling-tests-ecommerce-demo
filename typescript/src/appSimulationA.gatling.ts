@@ -1,13 +1,7 @@
-import {
-  simulation,
-  scenario,
-  atOnceUsers,
-  global
-} from "@gatling.io/core";
+import { simulation, scenario, atOnceUsers, global } from "@gatling.io/core";
 import { http } from "@gatling.io/http";
 
 export default simulation((setUp) => {
-
   const httpProtocol = http
     .baseUrl("https://api-ecomm.gatling.io")
     .acceptHeader("application/json")

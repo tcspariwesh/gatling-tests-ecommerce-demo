@@ -7,7 +7,7 @@ interface Session {
 }
 
 export function withAuthenticationHeader(protocolBuilder: HttpProtocolBuilder) {
-  return protocolBuilder.header("Authorization", (session : Session) =>
+  return protocolBuilder.header("Authorization", (session: Session) =>
     session.contains("accessToken") ? session.get("accessToken") : ""
   );
 }

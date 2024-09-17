@@ -19,7 +19,7 @@ public class AppSimulationB extends Simulation {
               .userAgentHeader(
                   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/119.0"));
 
-  private static final ScenarioBuilder scenario1 =
+  private static final ScenarioBuilder scn1 =
       scenario("Scenario B1")
           .exitBlockOnFail()
           .on(
@@ -30,28 +30,28 @@ public class AppSimulationB extends Simulation {
                               group("fr")
                                   .on(
                                       homeAnonymous,
-                                      pause(minSec, maxSec),
+                                      pause(minPauseSec, maxPauseSec),
                                       authenticate,
                                       homeAuthenticated,
-                                      pause(minSec, maxSec),
+                                      pause(minPauseSec, maxPauseSec),
                                       addToCart,
-                                      pause(minSec, maxSec),
+                                      pause(minPauseSec, maxPauseSec),
                                       buy)),
                       percent(usPerc)
                           .then(
                               group("us")
                                   .on(
                                       homeAnonymous,
-                                      pause(minSec, maxSec),
+                                      pause(minPauseSec, maxPauseSec),
                                       authenticate,
                                       homeAuthenticated,
-                                      pause(minSec, maxSec),
+                                      pause(minPauseSec, maxPauseSec),
                                       addToCart,
-                                      pause(minSec, maxSec),
+                                      pause(minPauseSec, maxPauseSec),
                                       buy))))
           .exitHereIfFailed();
 
-  private static final ScenarioBuilder scenario2 =
+  private static final ScenarioBuilder scn2 =
       scenario("Scenario B2")
           .exitBlockOnFail()
           .on(
@@ -60,87 +60,64 @@ public class AppSimulationB extends Simulation {
                       group("fr")
                           .on(
                               homeAnonymous,
-                              pause(minSec, maxSec),
+                              pause(minPauseSec, maxPauseSec),
                               authenticate,
                               homeAuthenticated,
-                              pause(minSec, maxSec),
+                              pause(minPauseSec, maxPauseSec),
                               addToCart,
-                              pause(minSec, maxSec),
+                              pause(minPauseSec, maxPauseSec),
                               buy),
                       group("us")
                           .on(
                               homeAnonymous,
-                              pause(minSec, maxSec),
+                              pause(minPauseSec, maxPauseSec),
                               authenticate,
                               homeAuthenticated,
-                              pause(minSec, maxSec),
+                              pause(minPauseSec, maxPauseSec),
                               addToCart,
-                              pause(minSec, maxSec),
+                              pause(minPauseSec, maxPauseSec),
                               buy)))
           .exitHereIfFailed();
 
-  private static final PopulationBuilder getTypeOfLoadTestSc1(String type) {
+  private static final PopulationBuilder injectionProfile(ScenarioBuilder scn, String type) {
     return switch (type) {
       case "capacity" ->
-          scenario1.injectOpen(
+          scn.injectOpen(
               incrementUsersPerSec(users)
                   .times(4)
                   .eachLevelLasting(duration)
                   .separatedByRampsLasting(4)
                   .startingFrom(10));
-      case "soak" -> scenario1.injectOpen(constantUsersPerSec(users).during(duration));
-      case "stress" -> scenario1.injectOpen(stressPeakUsers(users).during(duration));
-      case "breakpoint" -> scenario1.injectOpen(rampUsers(users).during(duration));
-      case "smoke" -> scenario1.injectOpen(atOnceUsers(1));
-      default -> scenario1.injectOpen(atOnceUsers(users));
+      case "soak" -> scn.injectOpen(constantUsersPerSec(users).during(duration));
+      case "stress" -> scn.injectOpen(stressPeakUsers(users).during(duration));
+      case "breakpoint" -> scn.injectOpen(rampUsers(users).during(duration));
+      case "ramp-hold" ->
+          scn.injectOpen(
+              rampUsersPerSec(0).to(users).during(ramp_duration),
+              constantUsersPerSec(users).during(duration));
+      case "smoke" -> scn.injectOpen(atOnceUsers(1));
+      default -> scn.injectOpen(atOnceUsers(users));
     };
   }
 
-  private static final PopulationBuilder getTypeOfLoadTestSc2(String type) {
-    return switch (type) {
-      case "capacity" ->
-          scenario2.injectOpen(
-              incrementUsersPerSec(users)
-                  .times(4)
-                  .eachLevelLasting(duration)
-                  .separatedByRampsLasting(4)
-                  .startingFrom(10));
-      case "soak" -> scenario2.injectOpen(constantUsersPerSec(users).during(duration));
-      case "stress" -> scenario2.injectOpen(stressPeakUsers(users).during(duration));
-      case "breakpoint" -> scenario2.injectOpen(rampUsers(users).during(duration));
-      case "smoke" -> scenario2.injectOpen(atOnceUsers(1));
-      default -> scenario2.injectOpen(atOnceUsers(users));
-    };
-  }
+  private static final List<Assertion> assertions = List.of(
+    global().responseTime().percentile(90.0).lt(500),
+    global().failedRequests().percent().lt(5.0));
 
   private static final List<Assertion> getAssertion(String type) {
     return switch (type) {
-      case "capacity" ->
-          List.of(
-              global().responseTime().percentile(90.0).lt(500),
-              global().failedRequests().percent().lt(5.0));
-      case "soak" ->
-          List.of(
-              global().responseTime().percentile(90.0).lt(500),
-              global().failedRequests().percent().lt(5.0));
-      case "stress" ->
-          List.of(
-              global().responseTime().percentile(90.0).lt(500),
-              global().failedRequests().percent().lt(5.0));
-      case "breakpoint" ->
-          List.of(
-              global().responseTime().percentile(90.0).lt(500),
-              global().failedRequests().percent().lt(5.0));
+      case "capacity" -> assertions;   
+      case "soak" -> assertions;
+      case "stress" -> assertions;
+      case "breakpoint" -> assertions;
+      case "ramp-hold" -> assertions;
       case "smoke" -> List.of(global().failedRequests().count().lt(1L));
-      default ->
-          List.of(
-              global().responseTime().percentile(90.0).lt(500),
-              global().failedRequests().percent().lt(5.0));
+      default -> assertions;
     };
   }
 
   {
-    setUp(getTypeOfLoadTestSc1(type), getTypeOfLoadTestSc2(type))
+    setUp(injectionProfile(scn1, type), injectionProfile(scn2, type))
         .assertions(getAssertion(type))
         .protocols(httpProtocolWithAuthentication);
   }
