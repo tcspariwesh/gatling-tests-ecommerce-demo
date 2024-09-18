@@ -12,3 +12,7 @@ updates:
     directory: "/typescript"
     schedule:
       interval: "weekly"
+  - package-ecosystem: "sbt"
+    directory: "/scala"
+    schedule:
+      interval: "weekly"
