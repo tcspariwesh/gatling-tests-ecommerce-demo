@@ -98,20 +98,18 @@ class AppSimulationB extends Simulation {
     }
   }
 
+  private def assertions: Seq[Assertion] = Seq(
+          global.responseTime.percentile(90.0).lt(500),
+          global.failedRequests.percent.lt(5.0)
+        )
+
   private def getAssertion(profileType: String): Seq[Assertion] = {
     profileType match {
       case "capacity" | "soak" | "stress" | "breakpoint" | "ramp-hold" =>
-        Seq(
-          global.responseTime.percentile(90.0).lt(500),
-          global.failedRequests.percent.lt(5.0)
-        )
+        assertions
       case "smoke" =>
         Seq(global.failedRequests.count.lt(1L))
-      case _ =>
-        Seq(
-          global.responseTime.percentile(90.0).lt(500),
-          global.failedRequests.percent.lt(5.0)
-        )
+      case _ => assertions
     }
   }
 
