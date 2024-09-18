@@ -13,7 +13,7 @@ public class Utils {
       Duration.ofMinutes(Integer.getInteger("rampDurationMinutes", 1));
   public static final int minPauseSec = Integer.getInteger("minPauseSec", 5);
   public static final int maxPauseSec = Integer.getInteger("maxPauseSec", 15);
-  public static final String type = System.getProperty("type", "smoke");
+  public static final String testType = System.getProperty("testType", "smoke");
 
   public static final int frPerc = Integer.getInteger("frPerc", 60);
   public static final int usPerc = Integer.getInteger("usPerc", 40);

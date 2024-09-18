@@ -11,7 +11,7 @@ export const duration = moment
 export const ramp_duration = moment
   .duration(parseInt(getParameter("rampDurationMinutes", 1)), "minutes")
   .asSeconds();
-export const type = getParameter("type", "stress");
+export const testType = getParameter("testType", "stress");
 export const frPerc = parseFloat(getParameter("frPerc", "60.0"));
 export const usPerc = parseFloat(getParameter("usPerc", "40.0"));
 export const frDelay = parseInt(getParameter("frDelay", "0"));

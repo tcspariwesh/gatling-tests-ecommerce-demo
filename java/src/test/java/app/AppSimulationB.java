@@ -1,7 +1,7 @@
 package app;
 
 import static app.config.Utils.*;
-import static app.endpoints.APIendpoints.*;
+import static app.endpoints.APIendpoints.withAuthenticationHeader;
 import static app.groups.ScenarioGroups.*;
 import static io.gatling.javaapi.core.CoreDsl.*;
 import static io.gatling.javaapi.http.HttpDsl.*;
@@ -100,13 +100,14 @@ public class AppSimulationB extends Simulation {
     };
   }
 
-  private static final List<Assertion> assertions = List.of(
-    global().responseTime().percentile(90.0).lt(500),
-    global().failedRequests().percent().lt(5.0));
+  private static final List<Assertion> assertions =
+      List.of(
+          global().responseTime().percentile(90.0).lt(500),
+          global().failedRequests().percent().lt(5.0));
 
   private static final List<Assertion> getAssertion(String type) {
     return switch (type) {
-      case "capacity" -> assertions;   
+      case "capacity" -> assertions;
       case "soak" -> assertions;
       case "stress" -> assertions;
       case "breakpoint" -> assertions;
@@ -117,8 +118,8 @@ public class AppSimulationB extends Simulation {
   }
 
   {
-    setUp(injectionProfile(scn1, type), injectionProfile(scn2, type))
-        .assertions(getAssertion(type))
+    setUp(injectionProfile(scn1, testType), injectionProfile(scn2, testType))
+        .assertions(getAssertion(testType))
         .protocols(httpProtocolWithAuthentication);
   }
 }

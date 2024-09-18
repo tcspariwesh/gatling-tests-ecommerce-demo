@@ -141,7 +141,7 @@ export default core.simulation((setUp) => {
     }
   };
 
-  setUp(injectionProfile(scn1, utils.type), injectionProfile(scn2, utils.type))
-    .assertions(...getAssertion(utils.type))
+  setUp(injectionProfile(scn1, utils.testType), injectionProfile(scn2, utils.testType))
+    .assertions(...getAssertion(utils.testType))
     .protocols(httpProtocol);
 });
