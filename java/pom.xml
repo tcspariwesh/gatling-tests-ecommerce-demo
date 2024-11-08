@@ -58,6 +58,9 @@
         <artifactId>gatling-maven-plugin</artifactId>
         <version>${gatling-maven-plugin.version}</version>
         <configuration>
+          <apiToken></apiToken>
+          <packageId></packageId>
+          <simulationId></simulationId>
         </configuration>
       </plugin>
     </plugins>
