@@ -9,12 +9,14 @@ This repository demonstrates how to use Gatling for load testing an eCommerce ap
 - Java with Maven: Leverages the Gatling Maven Plugin for executing load tests.
 - Javascript with NPM: Utilizes Gatling JS for scripting and running load tests in Javascript.
 - TypeScript with NPM: Utilizes Gatling JS for scripting and running load tests in TypeScript.
+- Scala with SBT: Leverages the Gatling SBT Plugin for executing load tests.
 
 ## Project Structure
 
 - `/java`: Contains the Java project setup for load testing using Maven. See the Java README for details on setup and execution.
 - `/javascript`: Contains the Javascript project setup for load testing using Gatling JS. See the Javascript README for instructions on prerequisites and usage.
 - `/typescript`: Contains the TypeScript project setup for load testing using Gatling JS. See the TypeScript README for instructions on prerequisites and usage.
+- - `/scala`: Contains the Scala project setup for load testing using SBT. See the Scala README for details on setup and execution.
 
 ## Application Under Test
 
