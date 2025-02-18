@@ -4,11 +4,14 @@ updates:
     directory: "/java"
     schedule:
       interval: "weekly"
+      day: "sunday"
   - package-ecosystem: "npm"
     directory: "/javascript"
     schedule:
       interval: "weekly"
+      day: "sunday"
   - package-ecosystem: "npm"
     directory: "/typescript"
     schedule:
       interval: "weekly"
+      day: "sunday"
