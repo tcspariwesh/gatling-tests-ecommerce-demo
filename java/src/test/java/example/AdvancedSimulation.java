@@ -55,7 +55,7 @@ public class AdvancedSimulation extends Simulation {
                                       buy))))
           .exitHereIfFailed();
 
-  // Define scenarioB2 with a uniform traffic distribution
+  // Define scenario 2 with a uniform traffic distribution
   // Reference: https://docs.gatling.io/reference/script/core/scenario/
   static final ScenarioBuilder scn2 =
       scenario("Scenario 2")
