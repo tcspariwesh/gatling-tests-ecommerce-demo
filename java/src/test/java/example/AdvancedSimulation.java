@@ -1,8 +1,8 @@
-package app;
+package example;
 
-import static app.config.Utils.*;
-import static app.endpoints.APIendpoints.withAuthenticationHeader;
-import static app.groups.ScenarioGroups.*;
+import static example.endpoints.APIendpoints.withAuthenticationHeader;
+import static example.groups.ScenarioGroups.*;
+import static example.utils.Config.*;
 import static io.gatling.javaapi.core.CoreDsl.*;
 import static io.gatling.javaapi.http.HttpDsl.*;
 
@@ -10,17 +10,21 @@ import io.gatling.javaapi.core.*;
 import io.gatling.javaapi.http.*;
 import java.util.List;
 
-public class AppSimulationB extends Simulation {
+public class AdvancedSimulation extends Simulation {
 
-  private static final HttpProtocolBuilder httpProtocolWithAuthentication =
+  // Define HTTP protocol configuration with authentication header
+  // Reference: https://docs.gatling.io/reference/script/protocols/http/protocol/
+  static final HttpProtocolBuilder httpProtocolWithAuthentication =
       withAuthenticationHeader(
           http.baseUrl(baseUrl)
               .acceptHeader("application/json")
               .userAgentHeader(
                   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/119.0"));
 
-  private static final ScenarioBuilder scn1 =
-      scenario("Scenario B1")
+  // Define scenario 1 with a random traffic distribution
+  // Reference: https://docs.gatling.io/reference/script/core/scenario/
+  static final ScenarioBuilder scn1 =
+      scenario("Scenario 1")
           .exitBlockOnFail()
           .on(
               randomSwitch()
@@ -51,8 +55,10 @@ public class AppSimulationB extends Simulation {
                                       buy))))
           .exitHereIfFailed();
 
-  private static final ScenarioBuilder scn2 =
-      scenario("Scenario B2")
+  // Define scenarioB2 with a uniform traffic distribution
+  // Reference: https://docs.gatling.io/reference/script/core/scenario/
+  static final ScenarioBuilder scn2 =
+      scenario("Scenario 2")
           .exitBlockOnFail()
           .on(
               uniformRandomSwitch()
@@ -79,8 +85,10 @@ public class AppSimulationB extends Simulation {
                               buy)))
           .exitHereIfFailed();
 
-  private static final PopulationBuilder injectionProfile(ScenarioBuilder scn, String type) {
-    return switch (type) {
+  // Define different load injection profiles
+  // Reference: https://docs.gatling.io/reference/script/core/injection/
+  static final PopulationBuilder injectionProfile(ScenarioBuilder scn) {
+    return switch (testType) {
       case "capacity" ->
           scn.injectOpen(
               incrementUsersPerSec(users)
@@ -100,26 +108,25 @@ public class AppSimulationB extends Simulation {
     };
   }
 
-  private static final List<Assertion> assertions =
+  // Define assertions for different test types
+  // Reference: https://docs.gatling.io/reference/script/core/assertions/
+  static final List<Assertion> assertions =
       List.of(
           global().responseTime().percentile(90.0).lt(500),
           global().failedRequests().percent().lt(5.0));
 
-  private static final List<Assertion> getAssertion(String type) {
-    return switch (type) {
-      case "capacity" -> assertions;
-      case "soak" -> assertions;
-      case "stress" -> assertions;
-      case "breakpoint" -> assertions;
-      case "ramp-hold" -> assertions;
+  static final List<Assertion> getAssertions() {
+    return switch (testType) {
+      case "capacity", "soak", "stress", "breakpoint", "ramp-hold" -> assertions;
       case "smoke" -> List.of(global().failedRequests().count().lt(1L));
       default -> assertions;
     };
   }
 
+  // Set up the simulation with scenarios, load profiles, and assertions
   {
-    setUp(injectionProfile(scn1, testType), injectionProfile(scn2, testType))
-        .assertions(getAssertion(testType))
+    setUp(injectionProfile(scn1), injectionProfile(scn2))
+        .assertions(getAssertions())
         .protocols(httpProtocolWithAuthentication);
   }
 }
