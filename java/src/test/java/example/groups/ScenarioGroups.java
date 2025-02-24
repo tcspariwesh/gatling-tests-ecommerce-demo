@@ -32,10 +32,10 @@ public class ScenarioGroups {
   // Define a feeder for user data
   // Reference: https://docs.gatling.io/reference/script/core/feeder/
   private static final FeederBuilder<Object> usersFeeder =
-      jsonFile("data/" + usersFeederFile).circular();
+      jsonFile(usersFeederFile).circular();
 
   private static final FeederBuilder<String> productsFeeder =
-      csv("data/" + productsFeederFile).circular();
+      csv(productsFeederFile).circular();
 
   // Define home page actions for anonymous users
   // Reference: https://docs.gatling.io/reference/script/core/group/

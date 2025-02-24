@@ -59,7 +59,10 @@ public class APIendpoints {
   public static final HttpRequestActionBuilder search =
       http("Search")
           .get("/products")
-          .queryParam("search", "#{productName}") // Static search term
+          .queryParam("search", "#{%s}"
+                  .formatted(PRODUCT_NAME)) // Dynamically set product name from session using Gatling's
+          // Expression
+          // Language (EL)
           .check(status().is(200));
 
   // Define the "Add to Cart" request with a JSON payload

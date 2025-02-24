@@ -22,8 +22,8 @@ public class BasicSimulation extends Simulation {
 
   // Define scenario
   // Reference: https://docs.gatling.io/reference/script/core/scenario/
-  private static final ScenarioBuilder scenario1 =
-      scenario("Scenario 1").exec(http("Session").get("/session"));
+  private static final ScenarioBuilder scenario =
+      scenario("Scenario").exec(http("Session").get("/session"));
 
   // Define assertions
   // Reference: https://docs.gatling.io/reference/script/core/assertions/
@@ -32,6 +32,6 @@ public class BasicSimulation extends Simulation {
   // Define injection profile and execute the test
   // Reference: https://docs.gatling.io/reference/script/core/injection/
   {
-    setUp(scenario1.injectOpen(atOnceUsers(vu))).assertions(assertion).protocols(httpProtocol);
+    setUp(scenario.injectOpen(atOnceUsers(vu))).assertions(assertion).protocols(httpProtocol);
   }
 }

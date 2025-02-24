@@ -13,14 +13,14 @@ public class TargetEnvResolver {
           new EnvInfo(
               "https://ecomm.gatling.io",
               "https://api-ecomm.gatling.io",
-              "users_dev.json",
-              "products_dev.csv");
+              "data/users_dev.json",
+              "data/products_dev.csv");
       default ->
           new EnvInfo(
               "https://ecomm.gatling.io",
               "https://api-ecomm.gatling.io",
-              "users_dev.json",
-              "products_dev.csv");
+              "data/users_dev.json",
+              "data/products_dev.csv");
     };
   }
 }

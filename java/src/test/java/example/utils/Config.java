@@ -6,11 +6,11 @@ public class Config {
 
   // Define the target environment (default: DEV)
   // Reference:
-  // https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/System.html#getProperty(java.lang.String)
+  // https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
   public static final String targetEnv = System.getProperty("targetEnv", "DEV");
 
   // Load testing configuration
-  public static final int users = Integer.getInteger("users", 1); // Number of virtual users
+  public static final int vu = Integer.getInteger("vu", 1); // Number of virtual users
   public static final Duration duration =
       Duration.ofMinutes(Integer.getInteger("durationMinutes", 1)); // Test duration in minutes
   public static final Duration ramp_duration =
@@ -27,8 +27,6 @@ public class Config {
   public static final int usPerc = Integer.getInteger("usPerc", 40); // Percentage of US users
 
   // Resolve environment-specific configurations
-  // Reference:
-  // https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/System.html#getProperty(java.lang.String)
   public static final TargetEnvResolver.EnvInfo envInfo =
       TargetEnvResolver.resolveEnvironmentInfo(targetEnv);
   public static final String pageUrl = envInfo.pageUrl(); // Base URL for web pages

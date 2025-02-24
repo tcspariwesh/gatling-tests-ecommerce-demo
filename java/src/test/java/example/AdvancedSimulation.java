@@ -22,7 +22,7 @@ public class AdvancedSimulation extends Simulation {
                   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/119.0"));
 
   // Define scenario 1 with a random traffic distribution
-  // Reference: https://docs.gatling.io/reference/script/core/scenario/
+  // Reference: https://docs.gatling.io/reference/script/core/scenario/#randomswitch
   static final ScenarioBuilder scn1 =
       scenario("Scenario 1")
           .exitBlockOnFail()
@@ -56,7 +56,7 @@ public class AdvancedSimulation extends Simulation {
           .exitHereIfFailed();
 
   // Define scenario 2 with a uniform traffic distribution
-  // Reference: https://docs.gatling.io/reference/script/core/scenario/
+  // Reference: https://docs.gatling.io/reference/script/core/scenario/#uniformrandomswitch
   static final ScenarioBuilder scn2 =
       scenario("Scenario 2")
           .exitBlockOnFail()
@@ -91,20 +91,20 @@ public class AdvancedSimulation extends Simulation {
     return switch (testType) {
       case "capacity" ->
           scn.injectOpen(
-              incrementUsersPerSec(users)
+              incrementUsersPerSec(vu)
                   .times(4)
                   .eachLevelLasting(duration)
                   .separatedByRampsLasting(4)
                   .startingFrom(10));
-      case "soak" -> scn.injectOpen(constantUsersPerSec(users).during(duration));
-      case "stress" -> scn.injectOpen(stressPeakUsers(users).during(duration));
-      case "breakpoint" -> scn.injectOpen(rampUsers(users).during(duration));
+      case "soak" -> scn.injectOpen(constantUsersPerSec(vu).during(duration));
+      case "stress" -> scn.injectOpen(stressPeakUsers(vu).during(duration));
+      case "breakpoint" -> scn.injectOpen(rampUsers(vu).during(duration));
       case "ramp-hold" ->
           scn.injectOpen(
-              rampUsersPerSec(0).to(users).during(ramp_duration),
-              constantUsersPerSec(users).during(duration));
+              rampUsersPerSec(0).to(vu).during(ramp_duration),
+              constantUsersPerSec(vu).during(duration));
       case "smoke" -> scn.injectOpen(atOnceUsers(1));
-      default -> scn.injectOpen(atOnceUsers(users));
+      default -> scn.injectOpen(atOnceUsers(vu));
     };
   }
 
