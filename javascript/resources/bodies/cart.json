@@ -1,6 +1,6 @@
 {
-    "sessionId": "#{sessionId}",
+    "sessionId": "#{SessionId}",
     "cart": [
-        #{cartItems}
+        #{CartItems}
     ]
 }
