@@ -1,16 +1,19 @@
+// Resolve environment-specific configuration based on the target environment
 const targetEnvResolver = (targetEnv: String) => {
   switch (targetEnv) {
-    case "PROD":
+    case "DEV":
       return {
         pageUrl: "https://ecomm.gatling.io",
         baseUrl: "https://api-ecomm.gatling.io",
-        usersFeederFile: "users_dev1.json"
+        usersFeederFile: "data/users_dev.json",
+        productsFeederFile: "data/products_dev.csv"
       };
     default:
       return {
         pageUrl: "https://ecomm.gatling.io",
         baseUrl: "https://api-ecomm.gatling.io",
-        usersFeederFile: "users_dev1.json"
+        usersFeederFile: "data/users_dev.json",
+        productsFeederFile: "data/products_dev.csv"
       };
   }
 };
