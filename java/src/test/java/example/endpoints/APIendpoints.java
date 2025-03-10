@@ -4,6 +4,8 @@ import static example.utils.Keys.*;
 import static io.gatling.javaapi.core.CoreDsl.*;
 import static io.gatling.javaapi.http.HttpDsl.*;
 
+import java.util.Optional;
+
 import io.gatling.javaapi.http.*;
 
 public class APIendpoints {
@@ -15,7 +17,7 @@ public class APIendpoints {
       HttpProtocolBuilder protocolBuilder) {
     return protocolBuilder.header(
         "Authorization",
-        session -> session.contains(ACCESS_TOKEN) ? session.getString(ACCESS_TOKEN) : "");
+        session -> Optional.of(session.getString(ACCESS_TOKEN)).orElse(""));
   }
 
   // Define session retrieval endpoint with response validation and data
