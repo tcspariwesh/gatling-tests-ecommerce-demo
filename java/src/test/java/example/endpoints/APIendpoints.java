@@ -17,7 +17,7 @@ public class APIendpoints {
       HttpProtocolBuilder protocolBuilder) {
     return protocolBuilder.header(
         "Authorization",
-        session -> Optional.of(session.getString(ACCESS_TOKEN)).orElse(""));
+        session -> Optional.ofNullable(session.getString(ACCESS_TOKEN)).orElse(""));
   }
 
   // Define session retrieval endpoint with response validation and data
