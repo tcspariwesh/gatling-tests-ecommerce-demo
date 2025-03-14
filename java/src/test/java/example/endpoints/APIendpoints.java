@@ -4,9 +4,8 @@ import static example.utils.Keys.*;
 import static io.gatling.javaapi.core.CoreDsl.*;
 import static io.gatling.javaapi.http.HttpDsl.*;
 
-import java.util.Optional;
-
 import io.gatling.javaapi.http.*;
+import java.util.Optional;
 
 public class APIendpoints {
 
