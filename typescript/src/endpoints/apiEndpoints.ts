@@ -8,7 +8,7 @@ interface Session {
 }
 
 // Add authentication header if an access token exists in the session
-// Reference: https://docs.gatling.io/reference/script/protocols/http/request/#headers
+// Reference: https://docs.gatling.io/reference/script/protocols/http/protocol/#header
 export function withAuthenticationHeader(protocolBuilder: HttpProtocolBuilder) {
   return protocolBuilder.header("Authorization", (session: Session) =>
     session.contains(ACCESS_TOKEN) ? session.get(ACCESS_TOKEN) : ""

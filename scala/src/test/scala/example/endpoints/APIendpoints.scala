@@ -8,7 +8,7 @@ import example.utils.Keys._
 object APIendpoints {
 
   // Add authentication header if an access token exists in the session
-  // Reference: https://docs.gatling.io/reference/script/protocols/http/request/#headers
+  // Reference: https://docs.gatling.io/reference/script/protocols/http/protocol/#header
   def withAuthenticationHeader(protocolBuilder: HttpProtocolBuilder): HttpProtocolBuilder = {
     protocolBuilder.header(
       "Authorization",

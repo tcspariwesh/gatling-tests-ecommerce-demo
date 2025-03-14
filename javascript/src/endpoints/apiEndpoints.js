@@ -3,7 +3,7 @@ import { http, status } from "@gatling.io/http";
 import { ACCESS_TOKEN, PAGE_INDEX, PRODUCTS, PRODUCT_NAME, SESSION_ID } from "../utils/keys";
 
 // Add authentication header if an access token exists in the session
-// Reference: https://docs.gatling.io/reference/script/protocols/http/request/#headers
+// Reference: https://docs.gatling.io/reference/script/protocols/http/protocol/#header
 export function withAuthenticationHeader(protocolBuilder) {
   return protocolBuilder.header("Authorization", (session) =>
     session.contains(ACCESS_TOKEN) ? session.get(ACCESS_TOKEN) : ""
