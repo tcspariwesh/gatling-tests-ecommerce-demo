@@ -31,6 +31,7 @@ jobs:
           cache: 'maven'
       - name: Deploy Gatling Enterprise Package & Simulation Java
         if: steps.filter.outputs.java-maven == 'true'
+        working-directory: java
         run: mvn gatling:enterpriseDeploy
       - uses: actions/setup-node@v4
         if: steps.filter.outputs.js == 'true'
@@ -38,7 +39,9 @@ jobs:
           node-version: 18
       - name: Deploy Gatling Enterprise Package & Simulation JS
         if: steps.filter.outputs.js == 'true'
+        working-directory: javascript
         run: npm install
       - name: Deploy Gatling Enterprise Package & Simulation JS
         if: steps.filter.outputs.js == 'true'
+        working-directory: javascript
         run: npx gatling enterprise-deploy
