@@ -5,7 +5,7 @@ import io.gatling.http.Predef._
 import io.gatling.http.protocol.HttpProtocolBuilder
 import example.utils.Keys._
 
-object APIendpoints {
+object APIEndpoints {
 
   // Add authentication header if an access token exists in the session
   // Reference: https://docs.gatling.io/reference/script/protocols/http/protocol/#header

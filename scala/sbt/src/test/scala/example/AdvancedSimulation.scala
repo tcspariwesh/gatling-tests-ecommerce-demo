@@ -5,7 +5,7 @@ import io.gatling.http.Predef._
 import io.gatling.core.structure.{ScenarioBuilder, PopulationBuilder}
 import example.utils.Config._
 import example.groups.ScenarioGroups._
-import example.endpoints.APIendpoints.withAuthenticationHeader;
+import example.endpoints.APIEndpoints.withAuthenticationHeader
 
 
 class AdvancedSimulation extends Simulation {

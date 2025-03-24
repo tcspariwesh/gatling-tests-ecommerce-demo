@@ -10,7 +10,7 @@ import java.util.ArrayList
 import java.util.List
 import example.utils.Config._
 import example.utils.Keys._
-import example.endpoints.APIendpoints._
+import example.endpoints.APIEndpoints._
 import example.endpoints.WebEndpoints._
 
 object ScenarioGroups {
