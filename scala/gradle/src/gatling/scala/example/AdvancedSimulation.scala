@@ -16,8 +16,7 @@ class AdvancedSimulation extends Simulation {
           http.baseUrl(baseUrl)
               .acceptHeader("application/json")
               .userAgentHeader(
-                  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"
-));
+                  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"))
 
   // Define scenario 1 with a random traffic distribution
   // Reference: https://docs.gatling.io/reference/script/core/scenario/#randomswitch
