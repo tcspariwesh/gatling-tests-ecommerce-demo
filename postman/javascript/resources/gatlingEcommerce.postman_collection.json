@@ -1,0 +1,204 @@
+{
+	"info": {
+		"_postman_id": "936e4027-abaf-4c85-966d-87236ac544d6",
+		"name": "Gatling E-commerce API Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38144067"
+	},
+	"item": [
+		{
+			"name": "Web Endpoints",
+			"item": [
+				{
+					"name": "Home Page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{pageUrl}}",
+							"host": [
+								"{{pageUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{pageUrl}}/login",
+							"host": [
+								"{{pageUrl}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "API Endpoints",
+			"item": [
+				{
+					"name": "Authentication",
+					"item": [
+						{
+							"name": "Create User Session",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/session",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"session"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "gatling",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Products",
+					"item": [
+						{
+							"name": "Get Products",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/products?page={{page}}&search={{search}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"products"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "{{page}}"
+										},
+										{
+											"key": "search",
+											"value": "{{search}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Cart",
+					"item": [
+						{
+							"name": "Add to cart",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"sessionId\": \"f7r9s666dqu3p649yy5an\",\n  \"cart\": [\n    {\n      \"id\": 0,\n      \"name\": \"Pink Throwback Hip Bag\",\n      \"color\": \"Pink\",\n      \"price\": 32,\n      \"quantity\": 1,\n      \"imageSrc\": \"sm-bag-pink.webp\",\n      \"imageAlt\": \"Front of satchel with pink canvas body, pink straps and handle, drawstring top, and front zipper pouch.\"\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/cart",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cart"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Checkout",
+					"item": [
+						{
+							"name": "Checkout Order",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Heff3hKGkEPD4cPGYzwL3tR07MjcUm5cpFDgxTJG1534bZ2yD0u3xkBzJFQzW1Zw"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"sessionId\": \"f7r9s666dqu3p649yy5an\",\n  \"cart\": [\n    {\n      \"id\": 0,\n      \"name\": \"Pink Throwback Hip Bag\",\n      \"color\": \"Pink\",\n      \"price\": 32,\n      \"quantity\": 1,\n      \"imageSrc\": \"sm-bag-pink.webp\",\n      \"imageAlt\": \"Front of satchel with pink canvas body, pink straps and handle, drawstring top, and front zipper pouch.\"\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/checkout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"checkout"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
