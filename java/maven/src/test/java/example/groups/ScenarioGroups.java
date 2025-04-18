@@ -15,7 +15,8 @@ import java.util.List;
 public class ScenarioGroups {
 
   // Define a record class for product details
-  // Reference: https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html
+  // Reference:
+  // https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html
   private record Product(
       int id,
       String name,
@@ -23,7 +24,8 @@ public class ScenarioGroups {
       String price,
       int quantity,
       String imageSrc,
-      String imageAlt) {}
+      String imageAlt) {
+  }
 
   // ObjectMapper for JSON serialization/deserialization
   // Reference: https://fasterxml.github.io/jackson-databind/
@@ -37,46 +39,42 @@ public class ScenarioGroups {
 
   // Define home page actions for anonymous users
   // Reference: https://docs.gatling.io/reference/script/core/group/
-  public static final ChainBuilder homeAnonymous =
-      group("homeAnonymous")
-          .on(homePage, session, exec(session -> session.set(PAGE_INDEX, 0)), products);
+  public static final ChainBuilder homeAnonymous = group("homeAnonymous")
+      .on(homePage, session, exec(session -> session.set(PAGE_INDEX, 0)), products);
 
   // Define authentication process
-  public static final ChainBuilder authenticate =
-      group("authenticate")
-          .on(loginPage, feed(usersFeeder), pause(minPauseSec, maxPauseSec), login);
+  public static final ChainBuilder authenticate = group("authenticate")
+      .on(loginPage, feed(usersFeeder), pause(minPauseSec, maxPauseSec), login);
 
   // Define home page actions for authenticated users
-  public static final ChainBuilder homeAuthenticated =
-      group("homeAuthenticated")
-          .on(homePage, products, pause(minPauseSec, maxPauseSec), feed(productsFeeder), search);
+  public static final ChainBuilder homeAuthenticated = group("homeAuthenticated")
+      .on(homePage, products, pause(minPauseSec, maxPauseSec), feed(productsFeeder), search);
 
   // Define adding a product to the cart
   // Reference: https://fasterxml.github.io/jackson-databind/javadoc/2.15/
-  public static final ChainBuilder addToCart =
-      group("addToCart")
-          .on(
-              exec(
-                  session -> {
-                    try {
-                      // Deserialize product list from session
-                      List<Product> products =
-                          mapper.readValue(
-                              session.getString(PRODUCTS), new TypeReference<List<Product>>() {});
+  public static final ChainBuilder addToCart = group("addToCart")
+      .on(
+          exec(
+              session -> {
+                try {
+                  // Deserialize product list from session
+                  List<Product> products = mapper.readValue(
+                      session.getString(PRODUCTS), new TypeReference<List<Product>>() {
+                      });
 
-                      // Select the first product and add it to cart
-                      Product myFirstProduct = products.get(0);
-                      List<Product> cartItems = new ArrayList<>();
-                      cartItems.add(myFirstProduct);
+                  // Select the first product and add it to cart
+                  Product myFirstProduct = products.get(0);
+                  List<Product> cartItems = new ArrayList<>();
+                  cartItems.add(myFirstProduct);
 
-                      // Serialize updated cart list back to session
-                      String cartItemsJsonString = mapper.writeValueAsString(cartItems);
-                      return session.set(CART_ITEMS, cartItemsJsonString);
-                    } catch (Exception e) {
-                      throw new RuntimeException(e);
-                    }
-                  }),
-              cart);
+                  // Serialize updated cart list back to session
+                  String cartItemsJsonString = mapper.writeValueAsString(cartItems);
+                  return session.set(CART_ITEMS, cartItemsJsonString);
+                } catch (Exception e) {
+                  throw new RuntimeException(e);
+                }
+              }),
+          cart);
 
   // Define checkout process
   public static final ChainBuilder buy = group("buy").on(checkOut);
