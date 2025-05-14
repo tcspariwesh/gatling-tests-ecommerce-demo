@@ -1,3 +1,5 @@
+rootProject.name = "gatling-ecomm-gradle-kotlin"
+
 pluginManagement {
     val kotlinVersion: String by settings
     plugins {
