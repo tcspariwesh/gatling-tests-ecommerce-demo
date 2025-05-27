@@ -21,6 +21,8 @@ export default simulation((setUp) => {
   // Define scenario
   // Reference: https://docs.gatling.io/reference/script/core/scenario/
   const scn = scenario("Scenario").exec(
+    // Initialize the Postman scoped variables. This is not automated yet, expect when using collection.scenario().
+    collection.initVariables,
     // Call the authentication endpoint by referencing the corresponding [folder > subfolders > request] in the postman collection
     collection.folder("API Endpoints").folder("Authentication").request("Create User Session")
   );

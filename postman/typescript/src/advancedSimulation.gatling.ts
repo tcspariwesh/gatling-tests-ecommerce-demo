@@ -16,6 +16,7 @@ import {
 } from "@gatling.io/core";
 import { http } from "@gatling.io/http";
 import {
+  collection,
   minPauseSec,
   maxPauseSec,
   frPerc,
@@ -36,6 +37,10 @@ export default simulation((setUp) => {
   // Define scenario 1 with a random traffic distribution
   // Reference: https://docs.gatling.io/reference/script/core/scenario/#randomswitch
   const scn1 = scenario("Scenario 1")
+    .exec(
+      // Initialize the Postman scoped variables. This is not automated yet, expect when using collection.scenario().
+      collection.initVariables,
+    )
     .exitBlockOnFail()
     .on(
       randomSwitch().on(
@@ -68,6 +73,10 @@ export default simulation((setUp) => {
   // Define scenario 2 with a uniform traffic distribution
   // Reference: https://docs.gatling.io/reference/script/core/scenario/#uniformrandomswitch
   const scn2 = scenario("Scenario 2")
+    .exec(
+      // Initialize the Postman scoped variables. This is not automated yet, expect when using collection.scenario().
+      collection.initVariables,
+    )
     .exitBlockOnFail()
     .on(
       uniformRandomSwitch().on(
