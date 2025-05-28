@@ -10,21 +10,21 @@ data class EnvInfo(
 
 object TargetEnvResolver {
 
-    // Resolve environment-specific configuration based on the target environment
-    fun resolveEnvironmentInfo(targetEnv: String): EnvInfo {
-        return when (targetEnv) {
-            "DEV" -> EnvInfo(
-                pageUrl = "https://ecomm.gatling.io",
-                baseUrl = "https://api-ecomm.gatling.io",
-                usersFeederFile = "data/users_dev.json",
-                productsFeederFile = "data/products_dev.csv"
-            )
-            else -> EnvInfo(
-                pageUrl = "https://ecomm.gatling.io",
-                baseUrl = "https://api-ecomm.gatling.io",
-                usersFeederFile = "data/users_dev.json",
-                productsFeederFile = "data/products_dev.csv"
-            )
-        }
+  // Resolve environment-specific configuration based on the target environment
+  fun resolveEnvironmentInfo(targetEnv: String): EnvInfo {
+    return when (targetEnv) {
+      "DEV" ->
+          EnvInfo(
+              pageUrl = "https://ecomm.gatling.io",
+              baseUrl = "https://api-ecomm.gatling.io",
+              usersFeederFile = "data/users_dev.json",
+              productsFeederFile = "data/products_dev.csv")
+      else ->
+          EnvInfo(
+              pageUrl = "https://ecomm.gatling.io",
+              baseUrl = "https://api-ecomm.gatling.io",
+              usersFeederFile = "data/users_dev.json",
+              productsFeederFile = "data/products_dev.csv")
     }
+  }
 }
