@@ -1,6 +1,5 @@
 package example.utils
 
-
 const val ACCESS_TOKEN = "AccessToken"
 const val SESSION_ID = "SessionId"
 const val PAGE_INDEX = "PageIndex"
