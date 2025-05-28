@@ -7,16 +7,18 @@ import example.utils.Config._
 import example.groups.ScenarioGroups._
 import example.endpoints.APIEndpoints.withAuthenticationHeader
 
-
 class AdvancedSimulation extends Simulation {
 
   // Define HTTP protocol configuration with authentication header
   // Reference: https://docs.gatling.io/reference/script/protocols/http/protocol/
-  private val httpProtocolWithAuthentication =  withAuthenticationHeader(
-          http.baseUrl(baseUrl)
-              .acceptHeader("application/json")
-              .userAgentHeader(
-                  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"))
+  private val httpProtocolWithAuthentication = withAuthenticationHeader(
+    http
+      .baseUrl(baseUrl)
+      .acceptHeader("application/json")
+      .userAgentHeader(
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"
+      )
+  )
 
   // Define scenario 1 with a random traffic distribution
   // Reference: https://docs.gatling.io/reference/script/core/scenario/#randomswitch
@@ -24,24 +26,24 @@ class AdvancedSimulation extends Simulation {
     .exitBlockOnFail(
       randomSwitch(
         frPerc -> group("fr")(
-            homeAnonymous,
-            pause(minPauseSec, maxPauseSec),
-            authenticate,
-            homeAuthenticated,
-            pause(minPauseSec, maxPauseSec),
-            addToCart,
-            pause(minPauseSec, maxPauseSec),
-            buy
+          homeAnonymous,
+          pause(minPauseSec, maxPauseSec),
+          authenticate,
+          homeAuthenticated,
+          pause(minPauseSec, maxPauseSec),
+          addToCart,
+          pause(minPauseSec, maxPauseSec),
+          buy
         ),
         usPerc -> group("us")(
-            homeAnonymous,
-            pause(minPauseSec, maxPauseSec),
-            authenticate,
-            homeAuthenticated,
-            pause(minPauseSec, maxPauseSec),
-            addToCart,
-            pause(minPauseSec, maxPauseSec),
-            buy
+          homeAnonymous,
+          pause(minPauseSec, maxPauseSec),
+          authenticate,
+          homeAuthenticated,
+          pause(minPauseSec, maxPauseSec),
+          addToCart,
+          pause(minPauseSec, maxPauseSec),
+          buy
         )
       )
     )
@@ -53,24 +55,24 @@ class AdvancedSimulation extends Simulation {
     .exitBlockOnFail(
       uniformRandomSwitch(
         group("fr")(
-            homeAnonymous,
-            pause(minPauseSec, maxPauseSec),
-            authenticate,
-            homeAuthenticated,
-            pause(minPauseSec, maxPauseSec),
-            addToCart,
-            pause(minPauseSec, maxPauseSec),
-            buy
-           ),
-      group("us")(
-            homeAnonymous,
-            pause(minPauseSec, maxPauseSec),
-            authenticate,
-            homeAuthenticated,
-            pause(minPauseSec, maxPauseSec),
-            addToCart,
-            pause(minPauseSec, maxPauseSec),
-            buy
+          homeAnonymous,
+          pause(minPauseSec, maxPauseSec),
+          authenticate,
+          homeAuthenticated,
+          pause(minPauseSec, maxPauseSec),
+          addToCart,
+          pause(minPauseSec, maxPauseSec),
+          buy
+        ),
+        group("us")(
+          homeAnonymous,
+          pause(minPauseSec, maxPauseSec),
+          authenticate,
+          homeAuthenticated,
+          pause(minPauseSec, maxPauseSec),
+          addToCart,
+          pause(minPauseSec, maxPauseSec),
+          buy
         )
       )
     )
@@ -109,9 +111,9 @@ class AdvancedSimulation extends Simulation {
   // Define assertions for different test types
   // Reference: https://docs.gatling.io/reference/script/core/assertions/
   private def assertions: Seq[Assertion] = Seq(
-          global.responseTime.percentile(90.0).lt(500),
-          global.failedRequests.percent.lt(5.0)
-        )
+    global.responseTime.percentile(90.0).lt(500),
+    global.failedRequests.percent.lt(5.0)
+  )
 
   private def getAssertions(): Seq[Assertion] = {
     testType match {
