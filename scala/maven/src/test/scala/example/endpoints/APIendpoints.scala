@@ -9,10 +9,14 @@ object APIEndpoints {
 
   // Add authentication header if an access token exists in the session
   // Reference: https://docs.gatling.io/reference/script/protocols/http/protocol/#header
-  def withAuthenticationHeader(protocolBuilder: HttpProtocolBuilder): HttpProtocolBuilder = {
+  def withAuthenticationHeader(
+      protocolBuilder: HttpProtocolBuilder
+  ): HttpProtocolBuilder = {
     protocolBuilder.header(
       "Authorization",
-      session => if (session.contains(ACCESS_TOKEN)) session(ACCESS_TOKEN).as[String] else ""
+      session =>
+        if (session.contains(ACCESS_TOKEN)) session(ACCESS_TOKEN).as[String]
+        else ""
     )
   }
 
@@ -52,7 +56,9 @@ object APIEndpoints {
   val cart = http("Add to Cart")
     .post("/cart")
     .asJson
-    .body(ElFileBody("bodies/cart.json")) // Load JSON request body from an external file using Gatling's Expression Language (EL) for dynamic values
+    .body(
+      ElFileBody("bodies/cart.json")
+    ) // Load JSON request body from an external file using Gatling's Expression Language (EL) for dynamic values
     .check(status.is(200))
 
   // Define checkout process
