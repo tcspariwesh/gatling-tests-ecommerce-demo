@@ -14,7 +14,7 @@ import {
   stressPeakUsers,
   ScenarioBuilder
 } from "@gatling.io/core";
-import { http } from "@gatling.io/http";
+import { postman, postmanProtocol } from "@gatling.io/postman";
 import {
   collection,
   minPauseSec,
@@ -32,7 +32,7 @@ export default simulation((setUp) => {
   // Define HTTP protocol without any configuration
   // Reference: https://docs.gatling.io/reference/script/protocols/http/protocol/
   // Reference: https://docs.gatling.io/reference/script/protocols/postman/#dsl-overview
-  const httpProtocol = http;
+  const basePostmanProtocol = postmanProtocol(collection);
 
   // Define scenario 1 with a random traffic distribution
   // Reference: https://docs.gatling.io/reference/script/core/scenario/#randomswitch
@@ -161,5 +161,5 @@ export default simulation((setUp) => {
   // Set up the simulation with scenarios, load profiles, and assertions
   setUp(injectionProfile(scn1), injectionProfile(scn2))
     .assertions(...getAssertions())
-    .protocols(httpProtocol);
+    .protocols(basePostmanProtocol);
 });

@@ -1,22 +1,21 @@
 import { simulation, atOnceUsers, global, scenario, getParameter } from "@gatling.io/core";
-import { http } from "@gatling.io/http";
-import { postman } from "@gatling.io/postman";
+import { postman, postmanProtocol } from "@gatling.io/postman";
 
 export default simulation((setUp) => {
   // Load VU count from system properties
   // Reference: https://docs.gatling.io/guides/passing-parameters/
   const vu = parseInt(getParameter("vu", "1"));
 
-  // Define HTTP protocol without any configuration
-  // Reference: https://docs.gatling.io/reference/script/protocols/http/protocol/
-  // Reference: https://docs.gatling.io/reference/script/protocols/postman/#dsl-overview
-  const httpProtocol = http;
-
   // Define the postman collection with its corresponding environment
   // Reference: https://docs.gatling.io/reference/script/protocols/postman/#import-collections
   const collection = postman
     .fromResource("gatlingEcommerce.postman_collection.json")
     .environment("gatlingEcommerce.postman_environment.json");
+
+  // Define HTTP protocol without any configuration
+  // Reference: https://docs.gatling.io/reference/script/protocols/http/protocol/
+  // Reference: https://docs.gatling.io/reference/script/protocols/postman/#dsl-overview
+  const basePostmanProtocol = postmanProtocol(collection);
 
   // Define scenario
   // Reference: https://docs.gatling.io/reference/script/core/scenario/
@@ -35,5 +34,5 @@ export default simulation((setUp) => {
   // Reference: https://docs.gatling.io/reference/script/core/injection/
   setUp(scn.injectOpen(atOnceUsers(vu)))
     .assertions(assertion)
-    .protocols(httpProtocol);
+    .protocols(basePostmanProtocol);
 });
